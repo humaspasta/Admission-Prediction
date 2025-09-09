@@ -10,6 +10,7 @@ class processing():
         self.path = kagglehub.dataset_download("mohansacharya/graduate-admissions")  
         self.path = os.path.join(self.path , 'Admission_Predict.csv')
         self.data = pd.read_csv(self.path)
+        self.data.drop(columns=['Serial No.'], inplace=True)
         last_col = self.data.columns.get_loc('Chance of Admit ')
         self.features = self.data.iloc[: , : last_col]
         self.labels = self.data['Chance of Admit ']
@@ -41,7 +42,7 @@ class processing():
 
         features_test_scaled = transformer.transform(features_test)
 
-        return features_train_scaled , features_test_scaled, labels_train, labels_test
+        return features_train_scaled , features_test_scaled, labels_train, labels_test, transformer
         
 
     def get_original(self):
@@ -49,6 +50,7 @@ class processing():
     
     def get_path(self):
         return self.path
+    
     def get_num_features_cols(self):
         return self.num_features_cols
     
