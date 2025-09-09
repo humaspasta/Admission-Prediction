@@ -4,6 +4,7 @@ import kagglehub
 from sklearn.compose import ColumnTransformer
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+import copy
 
 class processing():
     def __init__(self):
@@ -11,6 +12,7 @@ class processing():
         self.path = os.path.join(self.path , 'Admission_Predict.csv')
         self.data = pd.read_csv(self.path)
         self.data.drop(columns=['Serial No.'], inplace=True)
+        self.copy = copy.deepcopy(self.data)
         last_col = self.data.columns.get_loc('Chance of Admit ')
         self.features = self.data.iloc[: , : last_col]
         self.labels = self.data['Chance of Admit ']
@@ -45,7 +47,7 @@ class processing():
         return features_train_scaled , features_test_scaled, labels_train, labels_test, transformer
         
 
-    def get_original(self):
+    def get_data(self):
         return self.data
     
     def get_path(self):

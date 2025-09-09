@@ -40,7 +40,8 @@ class deep_learning():
 
     
     def predict(self , input:pd.Series):
-        input = self.transformer.transform(input)
+        #input = self.transformer.transform(input)
+        #print(input.shape)
         return self.model.predict(input)
 
 
